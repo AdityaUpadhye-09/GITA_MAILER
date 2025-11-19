@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>VAANI — Bhagavad Gita Daily Quotes</title>
+
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: url("krishna.jpg") no-repeat center center fixed;
+      background-size: cover;
+      color: #3e2723;
+      margin: 0;
+      padding: 0;
+      text-align: center;
+    }
+
+    .overlay {
+      background-color: rgba(255, 255, 255, 0.1);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 20px;
+    }
+
+    .container {
+      max-width: 500px;
+      background: white;
+      padding: 40px 30px;
+      border-radius: 16px;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+      margin-top: -40px; 
+      text-align: center;
+      backdrop-filter: blur(5px);
+    }
+
+    h1 {
+      font-size: 2.3em;
+      color: #6b3e0b;
+      margin-bottom: 10px;
+      letter-spacing: 2px;
+    }
+
+    p {
+      color: #4e342e;
+      font-size: 1.1em;
+    }
+
+    input {
+      padding: 12px;
+      width: 80%;
+      border-radius: 10px;
+      border: 1px solid #d7ccc8;
+      font-size: 1em;
+      outline: none;
+      margin-top: 20px;
+    }
+
+    button {
+      padding: 12px 25px;
+      margin: 10px 5px;
+      border: none;
+      border-radius: 8px;
+      background: linear-gradient(90deg, #f9a825, #f57f17);
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      background: linear-gradient(90deg, #fbc02d, #ffa000);
+    }
+
+    .quote-box {
+      margin-top: 30px;
+      padding: 20px;
+      background: #fffde7;
+      border-left: 5px solid #f9a825;
+      border-radius: 10px;
+      font-style: italic;
+    }
+
+    #message {
+      margin-top: 20px;
+      font-weight: 500;
+    }
+
+    footer {
+      margin-top: 60px;
+      font-size: 0.9em;
+      color: #8d6e63;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay">
+    <div class="container">
+      <h1>🌸 VAANI</h1>
+      <p>Receive timeless wisdom from the Bhagavad Gita directly in your inbox.</p>
+
+      <input id="email" type="email" placeholder="Enter your email address" />
+      <br>
+      <button onclick="subscribe()">Subscribed</button>
+      <button onclick="unsubscribe()">Unsubscribe</button>
+
+      <p id="message"></p>
+
+      <div class="quote-box" id="quote-box">
+        “You have the right to work, but never to the fruit of work.”  
+        <br><br>— Bhagavad Gita, Chapter 2 Verse 47
+      </div>
+    </div>
+
+    <footer>
+      Made with ♥ by Aditya Upadhye — Inspired by the Bhagavad Gita
+    </footer>
+  </div>
+
+  <script>
+  async function subscribe() {
+    const email = document.getElementById('email').value;
+
+    const res = await fetch('/api/subscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+    document.getElementById('message').textContent = data.message;
+  }
+
+  async function unsubscribe() {
+    const email = document.getElementById('email').value;
+
+    const res = await fetch('/api/subscribe/unsubscribe', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ email })
+    });
+
+    const data = await res.json();
+    document.getElementById('message').textContent = data.message;
+  }
+</script>
+
+</body>
+</html>
